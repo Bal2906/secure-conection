@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conexión HTTPS Segura</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #5e60ce, #7400b8);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.12);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        width: 420px;
+        text-align: center;
+        animation: fadeIn 1.5s ease;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+
+      button {
+        padding: 14px 28px;
+        margin-top: 20px;
+        background: #80ffdb;
+        border: none;
+        color: #222;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: 0.2s;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background: #48bfe3;
+        transform: scale(1.05);
+      }
+
+      #resultado {
+        margin-top: 20px;
+        font-size: 1.3rem;
+        min-height: 40px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔐 Conexión HTTPS Segura</h1>
+      <p>Haz clic para comunicarte con el servidor por HTTPS.</p>
+
+      <button onclick="conectar()">Realizar conexión segura</button>
+
+      <div id="resultado"></div>
+    </div>
+
+    <script>
+      async function conectar() {
+        document.getElementById("resultado").innerHTML = "Conectando...";
+
+        try {
+          const res = await fetch("https://localhost:3001", {
+            method: "GET",
+          });
+
+          const data = await res.json();
+          document.getElementById("resultado").innerHTML =
+            "⚡ Respuesta recibida:<br><b>" + data.mensaje + "</b>";
+        } catch (error) {
+          document.getElementById("resultado").innerHTML =
+            "❌ Error al conectar: " + error;
+        }
+      }
+    </script>
+  </body>
+</html>
